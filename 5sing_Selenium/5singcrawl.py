@@ -148,6 +148,8 @@ class FiveSingCrawl2(BaseSeleniumClass):
                     new_href = BASE_URL + page_href
                     # self.driver.get(new_href)
                     self.get_download(new_href)
+                else:
+                    return 0
             
 
         
