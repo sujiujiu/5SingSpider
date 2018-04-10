@@ -15,4 +15,4 @@ song_type:
 
 eg:http://music.nb-fk.com/music.php?5sing=yc/3423557
 
-这个API只能获取单首歌，我写的代码也只针对于5sing的音乐空间和音乐人空间的两个用的比较多的模板，从歌手页抓取所有歌曲的链接，然后使用API下载
+这个API只能获取单首歌，我写的代码也只针对于5sing的音乐空间和音乐人空间的两个用的比较多的模板，从歌手页抓取所有歌曲的链接，然后使用urllib.urlretrieve进行下载
