@@ -1,0 +1,17 @@
+# 
+没有找到有用的API，但是找到一些在线解析的网站
+另外有一个API可以通过输入歌曲id和song_type，重定向后的url直接获得MP3的下载链接，不过这是一个解析网站，我直接用了这个。
+
+song_type:
+
+  1.yc - 原唱
+  
+  2.fc - 翻唱
+  
+  3.bz - 伴奏
+
+格式：http://music.nb-fk.com/music.php?5sing={song_type}/{song_id}
+
+eg:http://music.nb-fk.com/music.php?5sing=yc/3423557
+
+这个API只能获取单首歌，我写的代码也只针对于5sing的音乐空间和音乐人空间的两个用的比较多的模板，从歌手页抓取所有歌曲的链接，然后使用API下载
