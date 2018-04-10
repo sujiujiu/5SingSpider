@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
+import os
 import sys
+from urllib import urlretrieve
 import requests
 from bs4 import BeautifulSoup
 
@@ -75,19 +77,22 @@ class FiveSingSpider(object):
         return total_page_count
 
     def download(self, soup):
-        # artist_name = self.get_artist_name()
-        song_name_item = self.soup.find('div',{'class':'song_name'})
+        down_infos = []
+        song_name_item = soup.find('div',{'class':'song_name'})
         if song_name_item:
-            song_name, song_id, song_type, song_url = self.get_song_base_info(song_name_item)
-            next_url = self.get_next_page_url(self.soup)
+            down_info = self.get_song_base_info(song_name_item)
+            down_infos.append(down_info)
+            next_url = self.get_next_page_url(soup)
             if next_url:
                 next_req = self.get_req(next_url, error_file_name='%s_error' % self.song_type)
                 next_soup = BeautifulSoup(next_req.content, 'lxml') 
                 self.download(next_soup)
             else:
                 return 0
-        else:
-            pass
+        return down_infos
+
+    def old_down(self):
+        return self.download(self.soup)
 
     def new_down(self):
         down_infos = []
@@ -113,3 +118,21 @@ if __name__ == '__main__':
 
     old_spider = FiveSingSpider('marblue')
     # new_spider = FiveSingSpider('midaho')
+    down_infos = old_spider.old_down()
+    # down_infos = new_spider.new_down()
+    for down_info in down_infos:
+        artist_name = down_info['artist_name']
+        song_name = down_info['song_name']
+        song_id = down_info['song_id']
+        song_type = down_info['song_type']
+        down_before_url = 'http://music.nb-fk.com/music.php?5sing=%s/%s' % (song_type, song_id)
+        req = requests.get(url, headers=HEADERS)
+        down_url = req.url
+        down_file_dir = os.path.join('D:\\5SING', artist_name)
+        down_file_path = os.path.join(down_file_dir, '%s - %s' %(artist_name, song_name))
+        if os.path.exists(down_file_dir):
+            urlretrieve(down_url, down_file_path)
+        else:
+            os.mkdir(down_file_dir)
+            urlretrieve(down_url, down_file_path)
+
