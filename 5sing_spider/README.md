@@ -5,11 +5,11 @@
 
 song_type:
 
-  1.yc - 原唱
+    1. yc - 原唱
   
-  2.fc - 翻唱
+    2. fc - 翻唱
   
-  3.bz - 伴奏
+    3. bz - 伴奏
 
 格式：http://music.nb-fk.com/music.php?5sing={song_type}/{song_id}
 
